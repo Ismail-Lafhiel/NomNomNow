@@ -4,7 +4,7 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Animated, {FadeInDown} from 'react-native-reanimated';
 import CashedImage from '../helpers/Image';
 
-const RecipeCard = ({item, index}) => {
+const RecipeCard = ({item, index, navigation}) => {
   const isEven = index % 2 === 0;
   const useSmallHeight = index % 3 === 0;
 
@@ -20,7 +20,8 @@ const RecipeCard = ({item, index}) => {
           paddingLeft: isEven ? 0 : 8,
           paddingRight: isEven ? 8 : 0,
         }}
-        className="flex justify-center mb-4 space-y-1">
+        className="flex justify-center mb-4 space-y-1"
+        onPress={() => navigation.navigate('RecipeDetails', {...item})}>
         <CashedImage
           uri={item.strMealThumb}
           className="bg-black/20"

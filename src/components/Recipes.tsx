@@ -1,17 +1,17 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import {
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {Text, View} from 'react-native';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import MasonryList from '@react-native-seoul/masonry-list';
 import Loading from './Loading';
-import RecipeCard from './RecipeCard'; // Import the separated RecipeCard component
+import RecipeCard from './RecipeCard';
+import {useNavigation} from '@react-navigation/native';
 
-const Recipes = ({ meals, categories }) => {
+const Recipes = ({meals, categories}) => {
+  const navigation = useNavigation();
   return (
-    <View className="mx-4 space-y-3" style={{ margin: hp(2) }}>
+    <View className="mx-4 space-y-3" style={{margin: hp(2)}}>
       <Text
-        style={{ fontSize: hp(4), padding: hp(2) }}
+        style={{fontSize: hp(4), padding: hp(2)}}
         className="font-burrito text-neutral-600">
         Recipes
       </Text>
@@ -21,10 +21,12 @@ const Recipes = ({ meals, categories }) => {
         ) : (
           <MasonryList
             data={meals}
-            keyExtractor={(item) => item.idMeal}
+            keyExtractor={item => item.idMeal}
             numColumns={2}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, i }) => <RecipeCard item={item} index={i} />}
+            renderItem={({item, i}) => (
+              <RecipeCard item={item} index={i} navigation={navigation} />
+            )}
             onEndReachedThreshold={0.1}
           />
         )}
