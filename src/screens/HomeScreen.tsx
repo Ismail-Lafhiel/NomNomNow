@@ -46,6 +46,12 @@ const HomeScreen = () => {
       console.log('error: ', error.message);
     }
   };
+
+  const handleCategoryChange = (category: string) => {
+    getMeals(category);
+    setActiveCategory(category);
+    setMeals([]);
+  };
   return (
     <View>
       <StatusBar barStyle="dark-content" />
@@ -101,7 +107,7 @@ const HomeScreen = () => {
             <Categories
               categories={categories}
               activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
+              handleCategoryChange={handleCategoryChange}
             />
           )}
         </View>

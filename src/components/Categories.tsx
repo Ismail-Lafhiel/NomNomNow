@@ -4,10 +4,13 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Animated, {FadeInDown} from 'react-native-reanimated';
+import CashedImage from '../helpers/Image';
 
-const Categories = ({activeCategory, setActiveCategory, categories}) => {
+const Categories = ({activeCategory, handleCategoryChange, categories}) => {
   return (
-    <Animated.View entering={FadeInDown.duration(500).springify()} className='mt-6'>
+    <Animated.View
+      entering={FadeInDown.duration(500).springify()}
+      className="mt-6">
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -15,17 +18,20 @@ const Categories = ({activeCategory, setActiveCategory, categories}) => {
         contentContainerStyle={{paddingHorizontal: 15}}>
         {categories.map((category, index) => {
           let isActive = category.strCategory === activeCategory;
-          let activeButtonClass = isActive
-            ? ' bg-amber-400'
-            : ' bg-black/10';
+          let activeButtonClass = isActive ? ' bg-amber-400' : ' bg-black/10';
           return (
             <TouchableOpacity
               key={index}
-              onPress={() => setActiveCategory(category.strCategory)}
+              onPress={() => handleCategoryChange(category.strCategory)}
               className="flex items-center space-y-1 mx-2">
               <View className={`rounded-full p-[6px] ${activeButtonClass}`}>
-                <Image
+                {/* <Image
                   source={{uri: category.strCategoryThumb}}
+                  style={{width: hp(6), height: hp(6)}}
+                  className="rounded-full"
+                /> */}
+                <CashedImage
+                  uri={category.strCategoryThumb}
                   style={{width: hp(6), height: hp(6)}}
                   className="rounded-full"
                 />
