@@ -1,19 +1,17 @@
-import {Image, Pressable, Text, View} from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import MasonryList from '@react-native-seoul/masonry-list';
-import Animated, {FadeInDown} from 'react-native-reanimated';
 import Loading from './Loading';
-import CashedImage from '../helpers/Image';
-// import {mealData} from '../constants';
+import RecipeCard from './RecipeCard'; // Import the separated RecipeCard component
 
-const Recipes = ({meals, categories}) => {
+const Recipes = ({ meals, categories }) => {
   return (
-    <View className="mx-4 space-y-3" style={{margin: hp(2)}}>
+    <View className="mx-4 space-y-3" style={{ margin: hp(2) }}>
       <Text
-        style={{fontSize: hp(4), padding: hp(2)}}
+        style={{ fontSize: hp(4), padding: hp(2) }}
         className="font-burrito text-neutral-600">
         Recipes
       </Text>
@@ -23,64 +21,15 @@ const Recipes = ({meals, categories}) => {
         ) : (
           <MasonryList
             data={meals}
-            keyExtractor={(item): string => item.idMeal}
+            keyExtractor={(item) => item.idMeal}
             numColumns={2}
             showsVerticalScrollIndicator={false}
-            renderItem={({item, i}) => <RecipeCard item={item} index={i} />}
-            //   refreshing={isLoadingNext}
-            //   onRefresh={() => refetch({first: ITEM_CNT})}
+            renderItem={({ item, i }) => <RecipeCard item={item} index={i} />}
             onEndReachedThreshold={0.1}
-            //   onEndReached={() => loadNext(ITEM_CNT)}
           />
         )}
       </View>
     </View>
-  );
-};
-
-const RecipeCard = ({item, index}) => {
-  let isEven = index % 2 === 0;
-  let useSmallHeight = index % 3 === 0;
-  return (
-    <Animated.View
-      entering={FadeInDown.delay(index * 100)
-        .duration(600)
-        .springify()
-        .damping(12)}>
-      <Pressable
-        style={{
-          width: '100%',
-          paddingLeft: isEven ? 0 : 8,
-          paddingRight: isEven ? 8 : 0,
-        }}
-        className="flex justify-center mb-4 space-y-1">
-        {/* <Image
-          source={{uri: item.strMealThumb}}
-          className="bg-black/20"
-          style={{
-            width: '100%',
-            height: useSmallHeight ? hp(25) : hp(35),
-            borderRadius: 35,
-          }}
-        /> */}
-        <CashedImage
-          uri={item.strMealThumb}
-          className="bg-black/20"
-          style={{
-            width: '100%',
-            height: useSmallHeight ? hp(25) : hp(35),
-            borderRadius: 35,
-          }}
-        />
-        <Text
-          style={{fontSize: hp(1.6)}}
-          className="font-semibold ml-2 text-neutral-600">
-          {item.strMeal.length > 20
-            ? item.strMeal.slice(0, 20) + '...'
-            : item.strMeal}
-        </Text>
-      </Pressable>
-    </Animated.View>
   );
 };
 
