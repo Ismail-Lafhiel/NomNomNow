@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'JI Burrito';
+  src: url('./src/assets/fonts/JI_Burrito.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
